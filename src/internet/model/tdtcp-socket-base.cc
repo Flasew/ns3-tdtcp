@@ -909,22 +909,22 @@ TdTcpSocketBase::OnSubflowReceive (Ptr<Packet> packet,
   NS_LOG_INFO("=> Dumping RxBuffers after extraction");
   DumpRxBuffers(sf);
   if (expectedDSN < m_rxBuffer->NextRxSequence())
-    {
-      NS_LOG_LOGIC("The Rxbuffer advanced");
+  {
+    NS_LOG_LOGIC("The Rxbuffer advanced");
 
-      // NextRxSeq advanced, we have something to send to the app
-      if (!m_shutdownRecv)
-        {
-          //<< m_receivedData
-          NS_LOG_LOGIC("Notify data Rcvd" );
-          NotifyDataRecv();
-        }
-      // Handle exceptions
-      if (m_closeNotified)
-        {
-          NS_LOG_WARN ("Why TCP " << this << " got data after close notification?");
-        }
-   }
+    // NextRxSeq advanced, we have something to send to the app
+    if (!m_shutdownRecv)
+    {
+      //<< m_receivedData
+      NS_LOG_LOGIC("Notify data Rcvd" );
+      NotifyDataRecv();
+    }
+    // Handle exceptions
+    if (m_closeNotified)
+    {
+      NS_LOG_WARN ("Why TCP " << this << " got data after close notification?");
+    }
+  }
 }
 
 // Send 

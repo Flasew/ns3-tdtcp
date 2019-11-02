@@ -668,4 +668,19 @@ TdTcpTxSubflow::SendDataPacket (SequenceNumber32 seq,
   return sz;
 }
 
+uint32_t
+TdTcpSubflow::AvailableWindow () const
+{
+  uint32_t win = Window ();             // Number of bytes allowed to be outstanding
+  uint32_t inflight = BytesInFlight (); // Number of outstanding bytes
+  return (inflight > win) ? 0 : win - inflight;
+}
+
+uint32_t
+TdTcpSubflow::Window (void) const
+{
+  return std::min (m_meta->m_rWnd.Get (), m_tcb->m_cWnd.Get ());
+}
+
+
 }

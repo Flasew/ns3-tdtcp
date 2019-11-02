@@ -51,6 +51,7 @@ public:
                            uint32_t maxSize, 
                            bool withAck);
 
+
   // Received Ack relevant
   void ReceivedAck(Ptr<Packet>, const TcpHeader&); // Received an ACK packet
   void ProcessAck (const SequenceNumber32 &ackNumber, 
@@ -59,6 +60,9 @@ public:
   void DupAck ();
   void DoRetransmit ();
   void NewAck (SequenceNumber32 const& ack, bool resetRTO);
+
+  uint32_t AvailableWindow () const;
+  uint32_t Window (void) const;
 
 private:
 
